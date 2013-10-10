@@ -21,9 +21,9 @@
         <artifactId>accumulo-examples</artifactId>
         <groupId>org.apache.accumulo</groupId>
         <version>1.4.4</version>
-        <relativePath>../</relativePath>
   </parent>
   <artifactId>accumulo-wikisearch</artifactId>
+  <version>1.4.5-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>accumulo-wikisearch</name>
 
@@ -152,7 +152,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.commons-lang>2.4</version.commons-lang>
-    <version.accumulo>${project.version}</version.accumulo>
+    <version.accumulo>1.4.4</version.accumulo>
     <version.commons-jexl>2.0.1</version.commons-jexl>
     <version.commons-codec>1.5</version.commons-codec>
     <version.ejb-spec-api>1.0.1.Final</version.ejb-spec-api>
@@ -185,7 +185,7 @@
       <dependency>
         <groupId>org.apache.accumulo</groupId>
         <artifactId>accumulo-core</artifactId>
-        <version>${project.version}</version>
+        <version>${version.accumulo}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.hadoop</groupId>
@@ -200,7 +200,7 @@
       <dependency>
         <groupId>org.apache.accumulo</groupId>
         <artifactId>cloudtrace</artifactId>
-        <version>${project.version}</version>
+        <version>${version.accumulo}</version>
       </dependency>
       <dependency>
         <groupId>com.google.collections</groupId>
