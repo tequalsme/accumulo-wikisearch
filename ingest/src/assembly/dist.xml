@@ -36,10 +36,12 @@
     </fileSet>
     <fileSet>
       <directory>${project.basedir}/bin</directory>
+      <filtered>true</filtered>
       <fileMode>0744</fileMode>
     </fileSet>
     <fileSet>
       <directory>${project.basedir}/conf</directory>
+      <filtered>true</filtered>
       <fileMode>0644</fileMode>
     </fileSet>
   </fileSets>

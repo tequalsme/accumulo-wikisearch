@@ -25,9 +25,10 @@ INSTRUCTIONS
     
     Ingest
     ------
-	1. Copy ingest/target/wikisearch-ingest-*.jar and ingest/target/dependency/protobuf-java-*.jar to $ACCUMULO_HOME/lib/ext
-	2. Run ingest/bin/ingest.sh with one argument (the name of the directory in HDFS where the wikipedia XML 
-           files reside) and this will kick off a MapReduce job to ingest the data into Accumulo
+    1. Copy ingest/target/wikisearch-ingest-*.tar.gz to cluster and untar
+	2. Copy lib/wikisearch-ingest-*.jar and lib/protobuf-java-*.jar to $ACCUMULO_HOME/lib/ext
+	3. Run bin/ingest.sh with one argument: the name of the directory in HDFS where the wikipedia XML 
+           files reside, this will start a MapReduce job to ingest the data into Accumulo
        (For parallel ingest, instead run ingest/bin/ingest_parallel.sh)
    
     Query
