@@ -18,14 +18,12 @@
 
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <artifactId>accumulo-wikisearch</artifactId>
     <groupId>org.apache.accumulo</groupId>
+    <artifactId>accumulo-wikisearch</artifactId>
     <version>1.4.5-SNAPSHOT</version>
-    <relativePath>../</relativePath>
   </parent>
 
   <artifactId>wikisearch-ingest</artifactId>
-  <name>wikisearch-ingest</name>
 
   <dependencies>
     <dependency>
@@ -73,10 +71,6 @@
       <artifactId>protobuf-java</artifactId>
     </dependency>
     <dependency>
-    	<groupId>com.sun.jersey</groupId>
-    	<artifactId>jersey-server</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.apache.accumulo</groupId>
       <artifactId>cloudtrace</artifactId>
       <scope>runtime</scope>
@@ -105,10 +99,8 @@
               <goal>copy-dependencies</goal>
             </goals>
             <configuration>
-              <outputDirectory>lib</outputDirectory>
               <!-- just grab the non-provided runtime dependencies -->
               <includeArtifactIds>commons-lang,google-collections,lucene-core,lucene-analyzers,lucene-wikipedia,protobuf-java,accumulo-core,hadoop-core,libthrift,cloudtrace,zookeeper,commons-codec</includeArtifactIds>
-              <excludeTransitive>false</excludeTransitive>
             </configuration>
           </execution>
         </executions>
@@ -121,6 +113,15 @@
           </descriptors>
           <tarLongFileMode>gnu</tarLongFileMode>
         </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

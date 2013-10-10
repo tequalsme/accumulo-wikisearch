@@ -1,0 +1,7 @@
+accumulo.instance=instance
+accumulo.zookeepers=zookeepers
+accumulo.username=username
+accumulo.password=password
+
+query.tableName=wikipedia
+query.numThreads=10

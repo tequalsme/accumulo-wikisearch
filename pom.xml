@@ -18,134 +18,38 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-        <artifactId>accumulo-examples</artifactId>
         <groupId>org.apache.accumulo</groupId>
+        <artifactId>accumulo-examples</artifactId>
         <version>1.4.4</version>
   </parent>
   <artifactId>accumulo-wikisearch</artifactId>
   <version>1.4.5-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>accumulo-wikisearch</name>
 
   <modules>
     <module>ingest</module>
     <module>query</module>
-    <module>query-war</module>
+    <module>webapp</module>
   </modules>
-
-  <repositories>
-    <repository>
-      <id>central</id>
-      <name>Maven Repository Switchboard</name>
-      <layout>default</layout>
-      <url>http://repo1.maven.org/maven2</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>java.net</id>
-      <name>java.net</name>
-      <layout>default</layout>
-      <url>https://maven.java.net/content/groups/public</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
 
   <build>
     <defaultGoal>package</defaultGoal>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>enforce-mvn</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <artifactId>maven-clean-plugin</artifactId>
-        <configuration>
-          <filesets>
-            <fileset>
-              <directory>lib</directory>
-            </fileset>
-            <fileset>
-              <directory>target</directory>
-            </fileset>
-          </filesets>
-        </configuration>
+        <inherited>false</inherited>
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <outputDirectory>lib</outputDirectory>
-          <archive>
-            <manifest>
-              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-            </manifest>
-            <manifestEntries>
-              <Implementation-Build>${buildNumber}</Implementation-Build>
-              <Implementation-Timestamp>${timestamp}</Implementation-Timestamp>
-            </manifestEntries>
-          </archive>
-          <includes>
-            <include>**/**</include>
-          </includes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <configuration>
-          <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <encoding>UTF-8</encoding>
-          <quiet>true</quiet>
-          <jarOutputDirectory>lib</jarOutputDirectory>
-          <reportOutputDirectory>docs</reportOutputDirectory>
-          <javadocVersion>1.6</javadocVersion>
-          <additionalJOption>-J-Xmx512m</additionalJOption>
-        </configuration>
+        <inherited>false</inherited>
       </plugin>
       <plugin>
         <artifactId>maven-source-plugin</artifactId>
-        <configuration>
-          <outputDirectory>lib</outputDirectory>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-      </plugin>
-      <plugin>
         <inherited>false</inherited>
-        <groupId>org.apache.maven.plugins</groupId>
+      </plugin>
+      <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy-dependencies</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>copy-dependencies</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>../../lib</outputDirectory>
-              <!-- just grab the non-provided runtime dependencies -->
-              <includeArtifactIds>commons-collections,commons-configuration,commons-io,commons-lang,jline,log4j,libthrift,commons-jci-core,commons-jci-fam,commons-logging,commons-logging-api,cloudtrace</includeArtifactIds>
-              <excludeGroupIds>accumulo</excludeGroupIds>
-              <excludeTransitive>true</excludeTransitive>
-            </configuration>
-          </execution>
-        </executions>
+        <inherited>false</inherited>
       </plugin>
     </plugins>
   </build>
@@ -155,8 +59,6 @@
     <version.accumulo>1.4.4</version.accumulo>
     <version.commons-jexl>2.0.1</version.commons-jexl>
     <version.commons-codec>1.5</version.commons-codec>
-    <version.ejb-spec-api>1.0.1.Final</version.ejb-spec-api>
-    <version.jaxrs>2.1.0.GA</version.jaxrs>
     <version.kryo>1.04</version.kryo>
     <version.log4j>1.2.16</version.log4j>
     <version.log4j-extras>1.0</version.log4j-extras>
@@ -241,11 +143,6 @@
         <groupId>com.googlecode</groupId>
         <artifactId>minlog</artifactId>
         <version>${version.minlog}</version>
-      </dependency>
-      <dependency>
-      	<groupId>com.sun.jersey</groupId>
-      	<artifactId>jersey-server</artifactId>
-      	<version>1.11</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

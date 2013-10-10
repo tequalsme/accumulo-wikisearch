@@ -16,23 +16,17 @@
   limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
   <parent>
-    <artifactId>accumulo-wikisearch</artifactId>
     <groupId>org.apache.accumulo</groupId>
+    <artifactId>accumulo-wikisearch</artifactId>
     <version>1.4.5-SNAPSHOT</version>
-    <relativePath>../</relativePath>
   </parent>
-
   <artifactId>wikisearch-query</artifactId>
-  <packaging>ejb</packaging>
-  <name>wikisearch-query</name>
+  <properties>
+    <version.spring>3.1.1.RELEASE</version.spring>
+  </properties>
   <dependencies>
-    <dependency>
-      <groupId>javaee</groupId>
-      <artifactId>javaee-api</artifactId>
-      <version>5</version>
-      <scope>provided</scope>
-    </dependency>
     <dependency>
       <groupId>org.apache.accumulo</groupId>
       <artifactId>accumulo-core</artifactId>
@@ -94,7 +88,20 @@
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
     </dependency>
+    
+    <!-- Spring -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${version.spring}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${version.spring}</version>
+    </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -108,40 +115,12 @@
               <goal>copy-dependencies</goal>
             </goals>
             <configuration>
-              <outputDirectory>lib</outputDirectory>
               <!-- just grab the non-provided runtime dependencies -->
               <includeArtifactIds>commons-lang,commons-codec,protobuf-java,libthrift,zookeeper,hadoop-core,commons-jexl,google-collections,kryo,asm,minlog,reflectasm,wikisearch-ingest,accumulo-core,cloudtrace</includeArtifactIds>
-              <excludeTransitive>true</excludeTransitive>
             </configuration>
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptors>
-            <descriptor>src/assembly/dist.xml</descriptor>
-          </descriptors>
-          <tarLongFileMode>gnu</tarLongFileMode>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-ejb-plugin</artifactId>
-        <version>2.1</version>
-        <configuration>
-          <ejbVersion>3.1</ejbVersion>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
-  <modelVersion>4.0.0</modelVersion>
 </project>

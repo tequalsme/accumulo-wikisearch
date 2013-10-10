@@ -21,17 +21,25 @@
     <format>tar.gz</format>
   </formats>
   <baseDirectory></baseDirectory>
+  <files>
+    <file>
+      <source>${project.build.directory}/${project.build.finalName}.jar</source>
+      <outputDirectory>lib</outputDirectory>
+      <fileMode>0644</fileMode>
+    </file>
+  </files>
   <fileSets>
     <fileSet>
-      <directory>lib</directory>
+      <directory>${project.build.directory}/dependency</directory>
+      <outputDirectory>lib</outputDirectory>
       <fileMode>0644</fileMode>
     </fileSet>
     <fileSet>
-      <directory>bin</directory>
+      <directory>${project.basedir}/bin</directory>
       <fileMode>0744</fileMode>
     </fileSet>
     <fileSet>
-      <directory>conf</directory>
+      <directory>${project.basedir}/conf</directory>
       <fileMode>0644</fileMode>
     </fileSet>
   </fileSets>

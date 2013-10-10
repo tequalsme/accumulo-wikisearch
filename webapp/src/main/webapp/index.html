@@ -14,7 +14,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -66,7 +65,7 @@
     		of the associated wikipedia article.
     	</div>
     	<div id="d">
-	    	<form id="FORM" name="queryForm" method="get" target="results" onsubmit="return setAction()">
+	    	<form id="FORM" name="queryForm" method="get" action="rest/query">
 	    		<br />
 	    		<br />
 	    		<div class="center_box">
@@ -100,32 +99,9 @@
 				<label>Russia</label>n <input type="checkbox" name="auths" value="ruwiki" /><br />
 				</div>
 	    		<div class="center_input">				
-				<input type="submit" name="Submit Query" />
+				<input type="submit"/>
 				</div>
 	    	</form>
-	   		<br />
-	   		<br />
-	    	<iframe name="results" width="90%" height="400" scrolling="yes" >
-	    	</iframe>
-    	</div>
-    	<script type="text/javascript">
-    		function setAction() {
-	    		var f = document.forms[0];
-	    		var authString = "";
-	    		var sep = "";
-	    		for (var i=0; i<f.auths.length; i++) {
-	    			if (f.auths[i].checked) {
-	    				authString = authString + sep + f.auths[i].value;
-	    				sep = ",";
-	    			}
-	    		}
-	    		//Build the new query
-				var existingAction = "/accumulo-wikisearch/rest/Query/html";
-	    		var query = f.query.value;
-	    		
-	    		var newAction = existingAction + "?query=" + query + "&auths=" + authString;
-	    		document.forms[0].action = newAction;
-    		}
-    	</script>    	
+    	</div>  	
     </body>
 </html>
