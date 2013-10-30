@@ -51,8 +51,8 @@
       <artifactId>commons-lang</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.google.collections</groupId>
-      <artifactId>google-collections</artifactId>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.lucene</groupId>
@@ -100,7 +100,7 @@
             </goals>
             <configuration>
               <!-- just grab the non-provided runtime dependencies -->
-              <includeArtifactIds>commons-lang,google-collections,lucene-core,lucene-analyzers,lucene-wikipedia,protobuf-java,accumulo-core,hadoop-core,libthrift,cloudtrace,zookeeper,commons-codec</includeArtifactIds>
+              <includeArtifactIds>commons-lang,guava,lucene-core,lucene-analyzers,lucene-wikipedia,protobuf-java,accumulo-core,hadoop-core,libthrift,cloudtrace,zookeeper,commons-codec</includeArtifactIds>
             </configuration>
           </execution>
         </executions>

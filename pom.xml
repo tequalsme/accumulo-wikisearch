@@ -59,6 +59,7 @@
     <version.accumulo>1.4.4</version.accumulo>
     <version.commons-jexl>2.0.1</version.commons-jexl>
     <version.commons-codec>1.5</version.commons-codec>
+    <version.guava>14.0.1</version.guava>
     <version.kryo>1.04</version.kryo>
     <version.log4j>1.2.16</version.log4j>
     <version.log4j-extras>1.0</version.log4j-extras>
@@ -66,7 +67,6 @@
     <version.lucene-analyzers>3.0.2</version.lucene-analyzers>
     <version.lucene-wikipedia>3.0.2</version.lucene-wikipedia>
     <version.protobuf>2.3.0</version.protobuf>
-    <version.googlecollections>1.0</version.googlecollections>
     <version.libthrift>0.6.1</version.libthrift>
     <version.zookeeper>3.3.1</version.zookeeper>
     <version.minlog>1.2</version.minlog>
@@ -105,9 +105,9 @@
         <version>${version.accumulo}</version>
       </dependency>
       <dependency>
-        <groupId>com.google.collections</groupId>
-        <artifactId>google-collections</artifactId>
-        <version>${version.googlecollections}</version>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${version.guava}</version>
       </dependency>
       <dependency>
         <groupId>com.googlecode</groupId>
