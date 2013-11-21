@@ -100,16 +100,15 @@ public class EvaluatingIterator extends AbstractEvaluatingIterator {
    * Don't accept this key if the colf starts with 'fi'
    */
   @Override
-  public boolean isKeyAccepted(Key key) throws IOException {
+  public void findEventKey(Key key) throws IOException {
     if (key.getColumnFamily().toString().startsWith("fi")) {
-      Key copy = new Key(key.getRow(), new Text("fi\01"));
+      Key seekTo = new Key(key.getRow(), new Text("fi\01"));
+      Range r = new Range(seekTo, false, seekRange.getEndKey(), seekRange.isEndKeyInclusive());
       Collection<ByteSequence> columnFamilies = Collections.emptyList();
-      this.iterator.seek(new Range(copy, copy), columnFamilies, true);
+      this.iterator.seek(r, seekingCFs, seekingCFsInclusive);
       if (this.iterator.hasTop())
-        return isKeyAccepted(this.iterator.getTopKey());
-      return true;
+        findEventKey(this.iterator.getTopKey());
     }
-    return true;
   }
   
 }

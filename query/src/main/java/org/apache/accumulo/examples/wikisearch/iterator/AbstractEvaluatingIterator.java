@@ -70,16 +70,25 @@ public abstract class AbstractEvaluatingIterator implements SortedKeyValueIterat
   private Key currentKey = new Key();
   private Key returnKey;
   private Value returnValue;
-  private String expression;
   private QueryEvaluator evaluator;
   private EventFields event = null;
   private static Kryo kryo = new Kryo();
-  private Range seekRange = null;
+
+  protected Range seekRange = null;
+  protected Collection<ByteSequence> seekingCFs;
+  protected boolean seekingCFsInclusive;
+
+  private String expression;
   private Set<String> skipExpressions = null;
   
   protected AbstractEvaluatingIterator(AbstractEvaluatingIterator other, IteratorEnvironment env) {
     iterator = other.iterator.deepCopy(env);
-    event = other.event;
+    this.event = other.event;
+    this.expression = other.expression;
+    this.skipExpressions = other.skipExpressions;
+    this.seekRange = other.seekRange;
+    this.seekingCFs = other.seekingCFs;
+    this.seekingCFsInclusive = other.seekingCFsInclusive;
   }
   
   public AbstractEvaluatingIterator() {}
@@ -116,11 +125,10 @@ public abstract class AbstractEvaluatingIterator implements SortedKeyValueIterat
   /**
    * Provides the ability to skip this key and all of the following ones that match using the comparator.
    * 
-   * @param key
-   * @return true if the key should be acted upon, otherwise false.
+   * @param key starting point
    * @throws IOException
    */
-  public abstract boolean isKeyAccepted(Key key) throws IOException;
+  public abstract void findEventKey(Key key) throws IOException;
   
   /**
    * Reset state.
@@ -158,9 +166,10 @@ public abstract class AbstractEvaluatingIterator implements SortedKeyValueIterat
         // Check to see if the current key is accepted. For example in the wiki
         // table there are field index rows. We don't want to process those in
         // some cases so return right away. Consume all of the non-accepted keys
-        while (iterator.hasTop() && !isKeyAccepted(iterator.getTopKey())) {
-          iterator.next();
-        }
+        //while (iterator.hasTop() && !isKeyAccepted(iterator.getTopKey())) {
+        //  iterator.next();
+        //}
+        findEventKey(iterator.getTopKey());
         
         if (iterator.hasTop()) {
           aggregateRowColumn(event);
@@ -252,6 +261,8 @@ public abstract class AbstractEvaluatingIterator implements SortedKeyValueIterat
     // aggregated...
     
     seekRange = maximizeStartKeyTimeStamp(range);
+    seekingCFs = columnFamilies;
+    seekingCFsInclusive = inclusive;
     
     iterator.seek(seekRange, columnFamilies, inclusive);
     findTop();
@@ -282,7 +293,7 @@ public abstract class AbstractEvaluatingIterator implements SortedKeyValueIterat
         for (String skip : this.skipExpressions) {
           // Expression should have form: field<sp>operator<sp>literal.
           // We are going to replace the expression with field == null.
-          String field = skip.substring(0, skip.indexOf(" ") - 1);
+          String field = skip.substring(0, skip.indexOf(" "));
           this.expression = this.expression.replaceAll(skip, field + " == null");
         }
       }
